@@ -28,22 +28,35 @@
 	font: normal 100 medium sans-serif;
 }
 
-.selectHeader
-]
+input {
+	line-height: 20px;
+	padding:10px;
+	width:200px;
+}
 .buttonHolder {
 	text-align: center;
 }
+
+.submissionHolder {
+	width: inherit;
+	text-align:center;
+}
+
 .button[type="submit"] {
 	font: normal 400 medium sans-serif;
 	cursor:pointer;
 	text-align: center;
 	padding:10px;
-	background-color: #FF7D40;
+	background-color: #00C78C;
 	border:1px solid #666;
 	moz-border-radius: 15px;
   	-webkit-border-radius: 15px;
 	color:#000;
 	text-decoration: none
+}
+
+.button[type="submit"]:hover {
+	background-color: #48D1CC;
 }
 
 h1 {
