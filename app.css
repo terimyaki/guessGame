@@ -1,4 +1,71 @@
 .optionList {
+	width:1400px;
+}
+
+.option {
+	width:400px;
+	margin:10px;
+	padding: 10px;
 	display:inline-block;
 }
+
+.optionButton {
+	font: normal 400 medium sans-serif;
+	text-align: center;
+	width:inherit;
+	padding:10px;
+	background-color: #ED9121;
+	border:1px solid #666;
+	color:#000;
+	text-decoration: none
+}
+
+.optionButton:hover {
+	background-color:#FFE4C4;
+}
+
+.optionText {
+	font: normal 100 medium sans-serif;
+}
+
 .selectHeader
+]
+.buttonHolder {
+	text-align: center;
+}
+.button[type="submit"] {
+	font: normal 400 medium sans-serif;
+	cursor:pointer;
+	text-align: center;
+	padding:10px;
+	background-color: #FF7D40;
+	border:1px solid #666;
+	moz-border-radius: 15px;
+  	-webkit-border-radius: 15px;
+	color:#000;
+	text-decoration: none
+}
+
+h1 {
+	text-align: center;
+}
+
+h3 {
+	text-align: center;
+}
+
+.notification {
+	font: normal 400 medium sans-serif;
+	text-align: center;
+	padding:10px;
+	margin: 10px;
+	width: 1400px;
+}
+
+.notification .warm {
+	background-color:#FF3030;
+}
+
+.notification .cold {
+	background-color:#1E90FF;
+}
