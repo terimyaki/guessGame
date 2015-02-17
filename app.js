@@ -41,7 +41,7 @@ game.checkAnswer = function(){
 };
 
 game.getAHint = function(){
-
+	alert("The answer is " + game.answer);
 };
 
 var generateRandomNumber = function(upperBound){
