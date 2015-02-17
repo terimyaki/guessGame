@@ -75,10 +75,14 @@ h3 {
 	width: 1400px;
 }
 
-.notification .warm {
+.warm {
 	background-color:#FF3030;
 }
 
-.notification .cold {
+.cold {
 	background-color:#1E90FF;
+}
+
+.hide {
+	display:none;
 }
