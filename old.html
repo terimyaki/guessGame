@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Guess the Number</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="app.css">
+	</head>
+	<body>
+		<h1>Guessing the Game</h1>
+		<div id="about">
+			You are tasked with a secret mission: To save an important operative from the field. We understand that this is your first mission. But no worries, we received intel that the instigator is known to be infactuated with number guessing. A game that even a mouse can play.
+		</div>
+		<div id="selectMode">
+			<div class="selectHeader"><h3>Select Your Skill Level</h3></div>
+			<div class="optionList">
+				<div class="option">
+					<button type="button" id="selectEasy" class="optionButton" onclick= "game.setTotalGuesses(8)">Clueless (8 Guesses) </button>
+					<p class="optionText">They literally pulled you off the street into an unmarked van and dropped you here. No need to shed tears. After you are done, you can go back home.</p>
+				</div>
+				<div class="option">
+					<button type="button" id="selectMedium" class="optionButton" onclick= "game.setTotalGuesses(5)">Project (5 Guesses)</button>
+					<p class="optionText">You are normal. Came from normal family, had a normal upbringing. Like normal people, with work and focus, you can be slightly not normal.
+					</p>
+				</div>
+				<div class="option">
+					<button type="button" id="selectHard" class="optionButton" onclick= "game.setTotalGuesses(3)">Prospect (3 Guesses)</button>
+					<p class="optionText">You are the love-child of a diviner and psychic. Raised by a feared hermit in the deepest parts of the shadow forest. You can just subconsciously feel and taste the presence of anything kept in the dark, especially numbers.</p>
+				</div>
+			</div>
+		</div>
+		<div id="selectAgent" class ="hide">
+			<div class="selectHeader"><h3>Select the Agent You Are Saving</h3></div>
+			<div class="optionList">
+				<div class="option">
+					<button type="button" id="selectCletus" class="optionButton agent" onclick="game.setAgent('cletus')">Cletus</button>
+					<p class="optionText">Cletus is an agent that has been in the field for a long time. Seen many things. Does not like to chit-chat. Just wants to see the job done. Will get in your face if he doesn't see things getting done.</p>
+				</div>
+				<div class="option">
+					<button type="button" id="selectClaire" class="optionButton agent" onclick="game.setAgent('claire')">Claire</button>
+					<p class="optionText">Claire is a fresh agent that recently was transferred from her desk position </p>
+				</div>
+				<div class="option">
+					<button type="button" id="selectDog" class="optionButton agent" onclick="game.setAgent('dog')">Dog</button>
+					<p class="optionText">Dog was a failed government experiment pushed aggressively by [INTELLIGENCE OFFICER'S NAME REDACTED], after being moved by the Air Bud movie series. However the security officer has since been able to utilize its super cuteness in hostile situations to coax the opposition into submitting to peaceful negotiations</p>
+				</div>
+			</div>
+		</div>
+
+		<div id="gameScreen" class="hide">
+			<div class="notification">Warmer. Go Higher</div>
+			<div class="submissionHolder">
+				<input type="text" name="guessNumber" placeholder="Enter your guess" maxlength="3">
+				<button type="submit" class="button" id="submitGuess" onclick="game.checkAnswer()">Lock in My Guess</button>
+			</div>
+			<div class="buttonHolder">
+				<button type="button" class="miscButton" id="getHint" onclick="game.getAHint()">Get a Hint</button>
+				<button type="button" class="miscButton" id="resetGame" onclick="game.initialize()">Reset Game</button>
+			</div>
+		</div>
+
+		<!-- Load the JQuery and other scripts -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="app.js"></script>
+	</body>
+</html>
