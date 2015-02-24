@@ -24,6 +24,10 @@ $(document).ready(function(){
 	//Toggle Give Up Button
 	$("#giveUp").click(function(){
 		$("#promptSection").toggleClass("hidden");
+		if($("#promptSection").hasClass("hidden") && !$("#configPanel").hasClass("hidden")){
+			$("#config").removeClass("btn-success").addClass("btn-danger");
+			$("#configPanel").addClass("hidden");
+		}
 	});
 
 	//Restart Game
@@ -33,11 +37,13 @@ $(document).ready(function(){
 
 	//Handles Configuration
 	$("#config").click(function(){
-		var configPanel = $("configPanel");
+		var configPanel = $("#configPanel");
 		if (!configPanel.hasClass("hidden")){
-			game.config($("#selectLevel").val(), $("selectAgent").val());
+			game.config($("#selectLevel").val(), $("#selectAgent").val());
+			$("#config").removeClass("btn-success").addClass("btn-danger");
 			configPanel.addClass("hidden");
 		} else {
+			$("#config").removeClass("btn-danger").addClass("btn-success");
 			configPanel.removeClass("hidden");
 		}
 	});
@@ -179,11 +185,11 @@ Game.prototype.config = function(maxGuessesName, agentLongName){
 	}
 
 	//Set Agent
-	if (this.agent === "Cletus, the About-Retired"){
+	if (agentLongName === "Cletus, the About-Retired"){
 		this.agent = this.agentList.cletus;
-	} else if (this.agent === "Claire, the First Mission"){
+	} else if (agentLongName === "Claire, the First Mission"){
 		this.agent = this.agentList.claire;
-	} else if (this.agent === "Fido, the Dog Experiment"){
+	} else if (agentLongName === "Fido, the Dog Experiment"){
 		this.agent = this.agentList.fido;
 	}
 
@@ -229,10 +235,10 @@ Game.prototype.checksCollision = function(guess){
 	} else if (this.priorGuesses.length === 0){
 		if(guess < this.target){
 			this.priorGuesses.push(guess);
-			return [false, ["Higher!", "cold", "Guess again."]];
+			return [false, ["Higher!", "cold", "Guess again. " + (this.maxGuesses - this.priorGuesses.length) + " guesses remaining."]];
 		} else {
 			this.priorGuesses.push(guess);
-			return [false, ["Lower!", "cold", "Guess again."]];
+			return [false, ["Lower!", "cold", "Guess again. " + (this.maxGuesses - this.priorGuesses.length) + " guesses remaining."]];
 		}
 	} else if (this.checksBefore(guess)) {
 		return [false, ["Guess again.", "cold", " You guessed this number before."]];
@@ -241,13 +247,13 @@ Game.prototype.checksCollision = function(guess){
 		var isSpreadLarger = Math.abs(this.priorGuesses[this.priorGuesses.length - 1] - this.target) <= Math.abs(guess - this.target);
 		var isGuessSmaller = guess < this.target;
 		if(!isSpreadLarger && isGuessSmaller){
-			feedback = [false, ["Warmer!", "warm", "Guess higher."]];
+			feedback = [false, ["Warmer!", "warm", "Guess higher. " + (this.maxGuesses - this.priorGuesses.length -1) + " guesses remaining."]];
 		} else if(!isSpreadLarger && !isGuessSmaller) {
-			feedback = [false, ["Warmer!", "warm", "Guess lower."]];
+			feedback = [false, ["Warmer!", "warm", "Guess lower. " + (this.maxGuesses - this.priorGuesses.length -1) + " guesses remaining."]];
 		} else if (isSpreadLarger && isGuessSmaller){
-			feedback = [false, ["Colder!", "cold", "Guess higher."]];
+			feedback = [false, ["Colder!", "cold", "Guess higher. " + (this.maxGuesses - this.priorGuesses.length -1) + " guesses remaining."]];
 		} else {
-			feedback = [false, ["Colder!", "cold", "Guess lower."]];
+			feedback = [false, ["Colder!", "cold", "Guess lower. " + (this.maxGuesses - this.priorGuesses.length -1) + " guesses remaining."]];
 		}
 		this.priorGuesses.push(guess);
 		return feedback;
@@ -313,7 +319,7 @@ function AgentList(){
 								["Thank you, hero.", "YES! I knew you could do it."],
 								["Don't need to be sorry, you did your best.", "Thanks anyway."],
 								["Step back and take a breather.", "It's okay. We still got another shot", "Keep your head up."],
-								["Hey", "Thanks for coming in."],
+								["Hey", "Thanks for coming in on such short notice."],
 								"Claire is a fresh agent that recently was transferred from her desk position. She is glad for this opportunity.s");
 		this.fido = new Agent("Fido",
 								"Fido, the Dog Experiment",
