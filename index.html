@@ -19,6 +19,13 @@
 				<h2><strong>Guess the Number, Save the World</strong></h2>
 			</header>
 			<h3 id="play" class="text-center">Perform Mission</h3>
+			<div class="row hidden" id="guessPanel">
+				<div class="col-md-12 text-center">
+					<h5>Prior Guesses</h5>
+					<ul class="list-group list-inline" id="guessList">
+					</ul>
+				</div>
+			</div>
 				<div class="panel panel-default">
 					<div class="panel-body" id="agentTalk">
 						<strong>Cletus says:</strong> Surprise.
@@ -40,7 +47,7 @@
 						<button type="button" class="btn btn-warning btn-lg" id="requestHint">Hint</button>
 					</div>
 					<div class="col-md-1">
-						<button type="button" class="btn btn-danger btn-lg" id="giveUp">Give up</button>
+						<button type="button" class="btn btn-default btn-lg" id="giveUp">Nevermind</button>
 					</div>
 				</div> <!-- closes row -->
 				<div class="row" style="padding-top:50px" id="promptSection">

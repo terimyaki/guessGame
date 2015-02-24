@@ -27,6 +27,14 @@ $(document).ready(function(){
 		if($("#promptSection").hasClass("hidden") && !$("#configPanel").hasClass("hidden")){
 			$("#config").removeClass("btn-success").addClass("btn-danger");
 			$("#configPanel").addClass("hidden");
+			$("#giveUp").removeClass("btn-default").addClass("btn-danger");
+			$("#giveUp").html("Give Up");
+		} else if ($("#promptSection").hasClass("hidden")){
+			$("#giveUp").removeClass("btn-default").addClass("btn-danger");
+			$("#giveUp").html("Give Up");
+		} else {
+			$("#giveUp").removeClass("btn-danger").addClass("btn-default");
+			$("#giveUp").html("Nevermind");
 		}
 	});
 
@@ -87,63 +95,14 @@ function updateAgentTalk(){
 	});
 }
 
-/*function togglePrompt(mode){
-	//Prompt Window
-	var promptPanel = $("#promptSection.panel");
-	var promptTitle = $("#promptSection.panel-title");
-
-	var restartButton = $("#restart");
-	var configButton = $("#config");
-	var giveUpButton = $("#giveUp");
-
-	if(mode === "config"){
-		promptPanel.removeClass("panel-danger").addClass("panel-primary");
-		promptTitle.text("Start Mission");
-		restartButton.removeClass("btn-danger").addClass("btn-primary disabled");
-		configButton.removeClass("btn-danger btn-default").addClass("btn-success");
-		giveUpButton.addClass("disabled");
-	} else if (mode === "gameOver"){
-		promptPanel.removeClass("panel-danger").addClass("panel-primary");
-		promptTitle.text("Start Mission");
-		restartButton.removeClass("btn-danger disabled").addClass("btn-primary");
-		configButton.removeClass("btn-danger btn-success").addClass("btn-default");
-		giveUpButton.addClass("disabled");
-	} else if (mode === "inGame"){
-		promptPanel.removeClass("panel-primary").addClass("panel-danger");
-		promptTitle.text("Want to give up on the current mission?");
-		restartButton.removeClass("btn-primary disabled").addClass("btn-danger");
-		configButton.removeClass("btn-success btn-default").addClass("btn-danger");
-		giveUpButton.removeClass("disabled");
+//updates prior guesses
+function updatePriorGuesses(){
+	$("#guessList").append('<li class="list-group-item">   ' + game.priorGuesses[game.priorGuesses.length-1] + '   </li>');
+	if ($("#guessPanel").hasClass("hidden")){
+		$("#guessPanel").removeClass("hidden");
 	}
 }
 
-//Toggle gameOver
-function updateGameState(){
-	var promptSection = $("#promptSection");
-
-	//Buttons & Input
-	var hintButton = $("#requestHint");
-	var submitButton = $("#guessSubmit");
-	var inputField = $("#guessNum");
-	
-	if(game.isGameOver){
-		togglePrompt("gameOver");
-		hintButton.addClass("disabled");
-		submitButton.addClass("disabled");
-		inputField.addClass("disabled");
-		if(promptSection.hasClass("hidden")){
-			promptSection.removeClass("hidden");
-		}
-	} else {
-		togglePrompt("inGame");
-		hintButton.removeClass("disabled");
-		submitButton.removeClass("disabled");
-		inputField.removeClass("disabled");
-		if(!promptSection.hasClass("hidden")){
-			promptSection.addClass("hidden");
-		}
-	}
-}*/
 
 /*
 The following are Game related functions.
@@ -170,6 +129,8 @@ Game.prototype.reset = function(){
 	this.priorGuesses = [];
 	this.setNotification(["Welcome!", "neutral", "Guess a number from 1-100."]);
 	this.agentTalk = this.setAgentTalk("welcome");
+	$("#guessList").empty();
+	$("#guessPanel").addClass("hidden");
 	this.isGameOver = false;
 };
 
@@ -229,15 +190,19 @@ Game.prototype.setAgentTalk = function(scenerio){
 //Checks to see if guess is correct
 Game.prototype.checksCollision = function(guess){
 	if (guess === this.target){
+		this.priorGuesses.push(guess);
+		updatePriorGuesses();
 		return [true];
 	} else if (guess > 100 || guess < 1){
 		return [false, ["Not a valid number!", "cold", "Guess a number from 1-100."]];
 	} else if (this.priorGuesses.length === 0){
 		if(guess < this.target){
 			this.priorGuesses.push(guess);
+			updatePriorGuesses();
 			return [false, ["Higher!", "cold", "Guess again. " + (this.maxGuesses - this.priorGuesses.length) + " guesses remaining."]];
 		} else {
 			this.priorGuesses.push(guess);
+			updatePriorGuesses();
 			return [false, ["Lower!", "cold", "Guess again. " + (this.maxGuesses - this.priorGuesses.length) + " guesses remaining."]];
 		}
 	} else if (this.checksBefore(guess)) {
@@ -256,6 +221,7 @@ Game.prototype.checksCollision = function(guess){
 			feedback = [false, ["Colder!", "cold", "Guess lower. " + (this.maxGuesses - this.priorGuesses.length -1) + " guesses remaining."]];
 		}
 		this.priorGuesses.push(guess);
+		updatePriorGuesses();
 		return feedback;
 	}
 };
