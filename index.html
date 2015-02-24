@@ -18,13 +18,20 @@
 				</ul>
 				<h2><strong>Guess the Number, Save the World</strong></h2>
 			</header>
-			<h3 id="play">Perform Mission</h3>
+			<h3 id="play" class="text-center">Perform Mission</h3>
+			<div class="row hidden" id="guessPanel">
+				<div class="col-md-12 text-center">
+					<h5>Prior Guesses</h5>
+					<ul class="list-group list-inline" id="guessList">
+					</ul>
+				</div>
+			</div>
 				<div class="panel panel-default">
-					<div class="panel-body">
-						<strong>Fido the Canine: </strong> Woof!
+					<div class="panel-body" id="agentTalk">
+						<strong>Cletus says:</strong> Surprise.
 					</div>
 				</div>
-				<div class="alert alert-warning">
+				<div class="alert alert-warning" id="gameNotification">
 					<strong>Welcome!</strong> Guess a number from 1-100.
 				</div>
 				<div class="row">
@@ -32,27 +39,31 @@
 						<div class="input-group input-group-lg">
 							<input type="number" class="form-control" id="guessNum" placeholder="Enter a number from 1-100">
 							<span class="input-group-btn">
-								<button type="button" class="btn btn-success">Submit</button>
+								<button type="button" class="btn btn-success" id="guessSubmit">Submit</button>
 							</span>
 						</div> <!-- closes input-group -->
 					</div> <!-- closes co-lg-8 -->
-					<div class="col-md-2">
-						<button type="button" class="btn btn-warning btn-lg">Hint</button>
+					<div class="col-md-1">
+						<button type="button" class="btn btn-warning btn-lg" id="requestHint">Hint</button>
+					</div>
+					<div class="col-md-1">
+						<button type="button" class="btn btn-default btn-lg" id="giveUp">Nevermind</button>
 					</div>
 				</div> <!-- closes row -->
-				<div class="row" style="padding-top:50px">
+				<div class="row" style="padding-top:50px" id="promptSection">
+					<div class="col-md-12"><hr /></div>
 					<div class="col-md-6 col-md-offset-3">
-						<div class="panel panel-danger">
+						<div class="panel panel-danger" id="promptPanel">
 							<div class="panel-heading text-center">
 								<h5 class="panel-title">Want to give up on the current mission?</h5>
 							</div>
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-6 text-center">
-										<button type="button" class="btn btn-danger">Restart Mission</button>
+										<button type="button" class="btn btn-danger" id="restart">Restart Mission</button>
 									</div>
 									<div class="col-md-6 text-center">
-										<button type="button" class="btn btn-danger">Configure Mission</button>
+										<button type="button" class="btn btn-danger" id="config">Configure Mission</button>
 									</div>
 								</div>
 							</div>
@@ -60,21 +71,21 @@
 					</div>
 				</div>
 			<div class="col-md-12"><hr /></div>
-			<h3 id="config" style="text-align:center">Configure Your Mission</h3>
-			<div class="row">
+			<div class="row hidden" id="configPanel">
+				<h3 id="config" class="text-center">Configure Your Mission</h3>
 				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading text-center">
 							<h5 class="panel-title">Select Difficulty</h5>
 						</div>
-						<select class="form-control">
+						<select class="form-control" id="selectAgent">
 							<option>Cletus, the About-Retired</option>
 							<option>Claire, the First Mission</option>
 							<option>Fido, the Dog Experiment</option>
 						</select>
 						<div class="panel-body text-center">
-							<h7><strong>Cletus, the About-Retired</strong></h7>
-							<p>
+							<h7 id="agentHeader"><strong>Cletus, the About-Retired</strong></h7>
+							<p id="agentDetails">
 								Cletus is an agent that has been in the field for a long time. Seen many things. Does not like to chit-chat. Just wants to see the job done. Will get in your face if he doesn't see things getting done.
 							</p>
 						</div>
@@ -85,21 +96,21 @@
 						<div class="panel-heading text-center">
 								<h5 class="panel-title">Select Agent</h5>
 						</div>
-						<select class="form-control">
+						<select class="form-control" id="selectLevel">
 							<option>Clueless (8 Guesses)</option>
 							<option>Project (5 Guesses)</option>
 							<option>Prospect (3 Guesses)</option>
 						</select>
 						<div class="panel-body text-center">
-							<h7><strong>Clueless (8 Guesses)</strong></h7>
-							<p>
+							<h7 id"levelHeader"><strong>Clueless (8 Guesses)</strong></h7>
+							<p id="levelDetails">
 								They literally pulled you off the streets, into an unmarked van and dropped you here. No need to shed tears. After you are done, you can go back home.
 							</p>
 						</div>
 					</div> <!-- close panel -->
 				</div><!-- close col-md-6 -->
 			</div>
-		</div>
+		</div><!-- closes container -->
 
 		<!-- Load the JQuery and other scripts -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
