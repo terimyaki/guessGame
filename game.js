@@ -55,6 +55,51 @@ $(document).ready(function(){
 			configPanel.removeClass("hidden");
 		}
 	});
+
+	//Handles Updating the Selection Function
+	$("select#selectAgent").change(function(){
+		var selectValue = $("select#selectAgent").val();
+
+		var setAgentInfo = function(agent){
+			$("#agentHeader").html(function(){
+				return "<strong>" + agent.longName + "</strong>";
+			});
+
+			$("#agentDetails").text(function(){
+				return agent.description;
+			});
+		};
+
+		if (selectValue === game.agentList.cletus.longName){
+			setAgentInfo(game.agentList.cletus);
+		} else if (selectValue === game.agentList.claire.longName){
+			setAgentInfo(game.agentList.claire);
+		} else if (selectValue === game.agentList.fido.longName){
+			setAgentInfo(game.agentList.fido);
+		}
+	});
+
+	$("select#selectLevel").change(function(){
+		var selectValue = $("select#selectLevel").val();
+
+		var setLevelInfo = function(levelName, levelDetails){
+			$("#levelHeader").html(function(){
+				return "<strong>" + levelName + "</strong>";
+			});
+
+			$("#levelDetails").text(function(){
+				return levelDetails;
+			});
+		};
+
+		if (selectValue === "Clueless (8 Guesses)"){
+			setLevelInfo("Clueless (8 Guesses)", "They literally pulled you off the street into an unmarked van and dropped you here. No need to shed tears. After you are done, you can go back home.");
+		} else if (selectValue === "Project (5 Guesses)"){
+			setLevelInfo("Project (5 Guesses)", "You are normal. Came from normal family, had a normal upbringing. Like normal people, with work and focus, you can be slightly not normal.");
+		} else if (selectValue === "Prospect (3 Guesses)"){
+			setLevelInfo("Prospect (3 Guesses)", "You are the love-child of a diviner and psychic. Raised by a feared hermit in the deepest parts of the shadow forest. You can just subconsciously feel and taste the presence of anything kept in the dark, especially numbers.");
+		}
+	});
 });
 
 /*
@@ -146,11 +191,11 @@ Game.prototype.config = function(maxGuessesName, agentLongName){
 	}
 
 	//Set Agent
-	if (agentLongName === "Cletus, the About-Retired"){
+	if (agentLongName === this.agentList.cletus.longName){
 		this.agent = this.agentList.cletus;
-	} else if (agentLongName === "Claire, the First Mission"){
+	} else if (agentLongName === this.agentList.claire.longName){
 		this.agent = this.agentList.claire;
-	} else if (agentLongName === "Fido, the Dog Experiment"){
+	} else if (agentLongName === this.agentList.fido.longName){
 		this.agent = this.agentList.fido;
 	}
 
@@ -294,7 +339,7 @@ function AgentList(){
 								["**X___X**", "**takes last breath**"],
 								["**softly whimpers**", "**looks deep into your soul with his watery eyes**"],
 								["Woof!"],
-								"Dog was a failed government experiment pushed aggressively by [INTELLIGENCE OFFICER'S NAME REDACTED], after being moved by the Air Bud movie series. However the security officer has since been able to utilize its super cuteness in hostile situations to coax the opposition into submitting to peaceful negotiations");
+								"Dog was a failed government experiment pushed aggressively by [INTELLIGENCE OFFICER'S NAME REDACTED], after being emotionally moved and inspired by the Air Bud movie series. However the security officer has since been able to utilize its super cuteness in hostile situations to coax the opposition into submitting to peaceful negotiations");
 
 }
 
